@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Monalisa Flores – Floricultura Online</title>
+<link rel="stylesheet" href="style.css?v=27">
+</head>
+<body>
+<!-- Alternador de visualização PC / Celular -->
+<div class="view-switch" id="viewSwitch">
+  <button id="viewPc" type="button" title="Ver como PC (Desktop)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    <span>PC</span>
+  </button>
+  <button id="viewMobile" type="button" class="active" title="Ver como Celular (Mobile)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+    <span>Celular</span>
+  </button>
+</div>
+<!-- Barra de busca global — fixed, visível em qualquer página -->
+<div class="search-bar hidden" id="searchBar">
+  <input type="text" placeholder="Buscar flores, cestas, presentes..." autocomplete="off" spellcheck="false">
+  <button class="search-close">&#x2715;</button>
+</div>
+<div class="overlay" id="overlay"></div>
+<nav class="side-menu" id="sideMenu">
+  <div class="sm-label" style="padding-top:22px;">CATEGORIAS</div>
+  <div id="smCats"></div>
+</nav>
+
+<div class="page active" id="homePage">
+
+  <header class="header">
+    <button class="hbtn" id="menuBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    <a href="#" class="header-logo">Mona<span>lisa</span> flores</a>
+    <div class="header-actions">
+      <button class="hbtn" id="searchBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <button class="hbtn" id="cartBtn" aria-label="Carrinho" onclick="openCartSheet()" style="position:relative"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span id="cartBadge" style="position:absolute;top:-6px;right:-6px;background:#e30613;color:white;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:none;align-items:center;justify-content:center">0</span></button>
+    </div>
+  </header>
+
+
+  <div class="region-bar">
+    <span class="region-bar-icon"></span>
+    Entregamos em sua região
+  </div>
+
+  <section class="hero-carousel" id="heroCarousel">
+    <div class="hero-carousel-track" id="heroTrack">
+      <div class="hero-carousel-slide">
+        <img src="banner-hero.png" alt="12 de Junho Dia dos Namorados - Monalisa Flores" class="hero-carousel-img">
+      </div>
+      <div class="hero-carousel-slide">
+        <img src="banner-hero-2.png" alt="Cestas de Café da Manhã Especial" class="hero-carousel-img">
+      </div>
+      <div class="hero-carousel-slide">
+        <img src="banner-hero-3.png" alt="O melhor Presente para Namorados" class="hero-carousel-img">
+      </div>
+    </div>
+    <div class="hero-carousel-dots" id="heroDots">
+      <span class="hero-dot active" onclick="setHeroSlide(0)"></span>
+      <span class="hero-dot" onclick="setHeroSlide(1)"></span>
+      <span class="hero-dot" onclick="setHeroSlide(2)"></span>
+    </div>
+  </section>
+
+  <!-- Selos informativos — no espaço abaixo do banner -->
+  <div class="info-pills">
+    <div class="open-float" id="openFloat" title="Estamos abertos agora!">
+      <span class="open-float-dot"></span>
+      <span class="open-float-txt">Loja aberta</span>
+    </div>
+    <div class="info-pill" title="Entrega grátis na sua região">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      <span>Entrega Grátis</span>
+    </div>
+    <div class="info-pill" title="Uma floricultura pertinho de você">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span>Floricultura Próxima</span>
+    </div>
+  </div>
+
+  <section class="cats">
+    <div class="cats-scroll" id="catScroll"></div>
+  </section>
+
+  <div id="dynamicSections"></div>
+
+  <div class="feats">
+    <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span class="feat-lbl">Entrega<br>Rápida</span></div>
+    <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><span class="feat-lbl">Frete<br>Grátis</span></div>
+    <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg><span class="feat-lbl">3x Sem<br>Juros</span></div>
+    <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span class="feat-lbl">Compra<br>Segura</span></div>
+  </div>
+
+  <footer class="footer">
+    <span class="foot-logo">monalisa flores</span>
+    <div class="foot-row"><a href="#" id="btnCidadesAtendidas">Confira as Cidades Atendidas</a></div>
+    <div class="foot-row"><a href="#" onclick="openInfoModal('termos');return false">Termos de Uso</a><span class="s">•</span><a href="#" onclick="openInfoModal('devolucoes');return false">Devoluções e Reembolsos</a><span class="s">•</span><a href="#" onclick="openInfoModal('sac');return false">SAC</a></div>
+    <div class="foot-row"><a href="#" onclick="openInfoModal('quemsomos');return false">Quem Somos</a><span class="s">•</span><a href="#" onclick="openInfoModal('privacidade');return false">Política de Privacidade</a><span class="s">•</span><a href="#" onclick="openInfoModal('cookies');return false">Política de Cookies</a></div>
+    <div class="foot-row"><a href="#" onclick="openInfoModal('corporativo');return false">Corporativo</a></div>
+    <div class="foot-copy">© 2026 Monalisa Flores. Todos os direitos reservados.</div>
+  </footer>
+</div>
+
+<div class="page" id="detailPage">
+  <div class="det-bar">
+    <button class="det-back" id="backBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <span class="det-bar-title">Detalhes do Produto</span>
+  </div>
+  <img class="det-img" id="detImg" src="" alt="">
+  <div class="det-body">
+    <div id="detRatingRow" style="display:none"><span class="det-stars" id="detStars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="det-rcount" id="detCount"></span></div>
+    <div class="det-name" id="detName"></div>
+    <div class="det-old" id="detOldPrice" style="display:none;font-size:12px;color:#aaa;text-decoration:line-through;margin-bottom:2px;"></div>
+    <div class="det-price" id="detPrice"></div>
+    <div class="det-desc" id="detDesc"></div>
+    <div class="det-ship" id="detShip"></div>
+    <div id="detTshirtCustomizer" style="margin-bottom: 20px; display: none;"></div>
+    <div id="detAllianceCustomizer" style="margin-bottom: 20px; display: none;"></div>
+    <button class="btn-cart" id="detAddCart">Adicionar ao Carrinho</button>
+  </div>
+</div>
+
+<div class="page" id="categoryPage">
+  <div class="cat-page-bar">
+    <button class="cat-page-back" id="catBackBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <span class="cat-page-title" id="catPageTitle"></span>
+  </div>
+  <div class="cat-page-count" id="catPageCount"></div>
+  <div class="cat-page-grid" id="catPageGrid"></div>
+</div>
+
+<!-- CIDADES ATENDIDAS MODAL (Google SEO e verificação do usuário) -->
+<div class="cidades-modal hidden" id="cidadesModal">
+  <div class="cidades-modal-content">
+    <div class="cidades-modal-hdr">
+      <h3>Cidades Atendidas</h3>
+      <button class="cidades-modal-close" id="btnCidadesClose">&times;</button>
+    </div>
+    <p class="cidades-modal-intro">
+      Entregamos buquês, cestas e arranjos no mesmo dia em todo o Brasil. Como um marketplace líder, conectamos você às melhores floriculturas locais selecionadas de cada região para garantir flores frescas e entrega expressa rápida!
+    </p>
+    <div class="cidades-search-box">
+      <input type="text" id="cidadesSearchInput" placeholder="Busque sua cidade (ex: Campinas)...">
+    </div>
+    <div class="cidades-list-container" id="cidadesListContainer">
+      <div class="cidades-state-group" data-state="São Paulo">
+        <h4>São Paulo (SP)</h4>
+        <div class="cidades-grid">
+          <span class="cidade-item">São Paulo</span><span class="cidade-item">Campinas</span><span class="cidade-item">Guarulhos</span><span class="cidade-item">São Bernardo do Campo</span>
+          <span class="cidade-item">Santo André</span><span class="cidade-item">Osasco</span><span class="cidade-item">Ribeirão Preto</span><span class="cidade-item">Sorocaba</span>
+          <span class="cidade-item">Santos</span><span class="cidade-item">São José dos Campos</span><span class="cidade-item">Mogi das Cruzes</span><span class="cidade-item">Jundiaí</span>
+          <span class="cidade-item">Piracicaba</span><span class="cidade-item">Bauru</span><span class="cidade-item">São Vicente</span><span class="cidade-item">Itaquaquecetuba</span>
+          <span class="cidade-item">Carapicuíba</span><span class="cidade-item">Franca</span><span class="cidade-item">Taubaté</span>
+        </div>
+      </div>
+      <div class="cidades-state-group" data-state="Rio de Janeiro">
+        <h4>Rio de Janeiro (RJ)</h4>
+        <div class="cidades-grid">
+          <span class="cidade-item">Rio de Janeiro</span><span class="cidade-item">Niterói</span><span class="cidade-item">Duque de Caxias</span><span class="cidade-item">Nova Iguaçu</span>
+          <span class="cidade-item">São Gonçalo</span><span class="cidade-item">Petrópolis</span><span class="cidade-item">Campos dos Goytacazes</span><span class="cidade-item">Volta Redonda</span>
+          <span class="cidade-item">Cabo Frio</span><span class="cidade-item">Belford Roxo</span><span class="cidade-item">Angra dos Reis</span><span class="cidade-item">Nova Friburgo</span>
+        </div>
+      </div>
+      <div class="cidades-state-group" data-state="Minas Gerais">
+        <h4>Minas Gerais (MG)</h4>
+        <div class="cidades-grid">
+          <span class="cidade-item">Belo Horizonte</span><span class="cidade-item">Uberlândia</span><span class="cidade-item">Contagem</span><span class="cidade-item">Juiz de Fora</span>
+          <span class="cidade-item">Betim</span><span class="cidade-item">Montes Claros</span><span class="cidade-item">Ribeirão das Neves</span><span class="cidade-item">Uberaba</span>
+          <span class="cidade-item">Governador Valadares</span><span class="cidade-item">Ipatinga</span><span class="cidade-item">Sete Lagoas</span><span class="cidade-item">Divinópolis</span>
+        </div>
+      </div>
+      <div class="cidades-state-group" data-state="Paraná">
+        <h4>Paraná (PR)</h4>
+        <div class="cidades-grid">
+          <span class="cidade-item">Curitiba</span><span class="cidade-item">Londrina</span><span class="cidade-item">Maringá</span><span class="cidade-item">Ponta Grossa</span>
+          <span class="cidade-item">Cascavel</span><span class="cidade-item">São José dos Pinhais</span><span class="cidade-item">Foz do Iguaçu</span><span class="cidade-item">Colombo</span>
+        </div>
+      </div>
+      <div class="cidades-state-group" data-state="Rio Grande do Sul">
+        <h4>Rio Grande do Sul (RS)</h4>
+        <div class="cidades-grid">
+          <span class="cidade-item">Porto Alegre</span><span class="cidade-item">Caxias do Sul</span><span class="cidade-item">Canoas</span><span class="cidade-item">Pelotas</span>
+          <span class="cidade-item">Santa Maria</span><span class="cidade-item">Gravataí</span><span class="cidade-item">Viamão</span><span class="cidade-item">Novo Hamburgo</span>
+        </div>
+      </div>
+      <div class="cidades-state-group" data-state="Santa Catarina">
+        <h4>Santa Catarina (SC)</h4>
+        <div class="cidades-grid">
+          <span class="cidade-item">Florianópolis</span><span class="cidade-item">Joinville</span><span class="cidade-item">Blumenau</span><span class="cidade-item">São José</span>
+          <span class="cidade-item">Chapecó</span><span class="cidade-item">Criciúma</span><span class="cidade-item">Itajaí</span><span class="cidade-item">Palhoça</span>
+        </div>
+      </div>
+      <div class="cidades-state-group" data-state="Bahia">
+        <h4>Bahia (BA)</h4>
+        <div class="cidades-grid">
+          <span class="cidade-item">Salvador</span><span class="cidade-item">Feira de Santana</span><span class="cidade-item">Vitória da Conquista</span><span class="cidade-item">Camaçari</span>
+          <span class="cidade-item">Itabuna</span><span class="cidade-item">Juazeiro</span><span class="cidade-item">Ilhéus</span><span class="cidade-item">Lauro de Freitas</span>
+        </div>
+      </div>
+      <div class="cidades-state-group" data-state="Outras Regiões e Capitais">
+        <h4>Outras Capitais e Regiões (Norte, Nordeste, Centro-Oeste)</h4>
+        <div class="cidades-grid">
+          <span class="cidade-item">Brasília (DF)</span><span class="cidade-item">Fortaleza (CE)</span><span class="cidade-item">Recife (PE)</span><span class="cidade-item">Manaus (AM)</span>
+          <span class="cidade-item">Goiânia (GO)</span><span class="cidade-item">Belém (PA)</span><span class="cidade-item">São Luís (MA)</span><span class="cidade-item">Maceió (AL)</span>
+          <span class="cidade-item">Natal (RN)</span><span class="cidade-item">João Pessoa (PB)</span><span class="cidade-item">Teresina (PI)</span><span class="cidade-item">Aracaju (SE)</span>
+          <span class="cidade-item">Campo Grande (MS)</span><span class="cidade-item">Cuiabá (MT)</span><span class="cidade-item">Porto Velho (RO)</span><span class="cidade-item">Macapá (AP)</span>
+          <span class="cidade-item">Rio Branco (AC)</span><span class="cidade-item">Boa Vista (RR)</span><span class="cidade-item">Palmas (TO)</span><span class="cidade-item">Anápolis (GO)</span>
+          <span class="cidade-item">Aparecida de Goiânia (GO)</span><span class="cidade-item">Cariacica (ES)</span><span class="cidade-item">Vila Velha (ES)</span><span class="cidade-item">Vitória (ES)</span>
+          <span class="cidade-item">Serra (ES)</span><span class="cidade-item">Jaboatão dos Guararapes (PE)</span><span class="cidade-item">Olinda (PE)</span><span class="cidade-item">Caruaru (PE)</span>
+          <span class="cidade-item">Campina Grande (PB)</span><span class="cidade-item">Mossoró (RN)</span><span class="cidade-item">Caucaia (CE)</span><span class="cidade-item">Juazeiro do Norte (CE)</span>
+          <span class="cidade-item">Imperatriz (MA)</span><span class="cidade-item">Ananindeua (PA)</span><span class="cidade-item">Santarém (PA)</span><span class="cidade-item">Várzea Grande (MT)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cookie" id="cookieBanner">
+  <p>Monalisa Flores e os cookies: Nós usamos cookies para personalizar anúncios e melhorar a sua experiência no site. Ao continuar navegando, você concorda com a nossa <a href="#">Política de Privacidade</a> e <a href="#">Política de Cookies</a>.</p>
+  <button class="cookie-btn" id="cookieBtn">Continuar e Fechar</button>
+</div>
+
+<script src="products-data.js?v=2"></script>
+<script src="extra-products.js?v=11"></script>
+<script src="script.js?v=17"></script>
+<script src="payment-config.js?v=5"></script>
+<script src="cart.js?v=32"></script>
+<script src="info-pages.js?v=1"></script>
+<script src="view-toggle.js"></script>
+<script src="drag-scroll.js"></script>
+</body>
+</html>
