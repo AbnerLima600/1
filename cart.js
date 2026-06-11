@@ -68,6 +68,33 @@ function fmt(v) {
   return 'R$ ' + (c / 100).toFixed(2).replace('.', ',');
 }
 
+// Valida número de cartão real pelo algoritmo de Luhn (13–19 dígitos)
+function luhnValid(n) {
+  n = String(n || '').replace(/\D/g, '');
+  if (n.length < 13 || n.length > 19) return false;
+  let sum = 0, alt = false;
+  for (let i = n.length - 1; i >= 0; i--) {
+    let d = parseInt(n.charAt(i), 10);
+    if (alt) { d *= 2; if (d > 9) d -= 9; }
+    sum += d; alt = !alt;
+  }
+  return sum % 10 === 0;
+}
+
+// Valida validade MM/AA: mês 01–12 e não vencida
+function validExpiry(exp) {
+  const m = String(exp || '').match(/^(\d{2})\/(\d{2})$/);
+  if (!m) return false;
+  const mm = parseInt(m[1], 10), yy = parseInt(m[2], 10);
+  if (mm < 1 || mm > 12) return false;
+  const now = new Date();
+  const curYY = now.getFullYear() % 100;
+  const curMM = now.getMonth() + 1;
+  if (yy < curYY) return false;
+  if (yy === curYY && mm < curMM) return false;
+  return true;
+}
+
 function getCartTotal() {
   return CART.items.reduce((s, i) => s + i.totalPrice, 0);
 }
@@ -1532,15 +1559,17 @@ window.confirmOrder = function() {
     window._coData.deliveryNotes = ((document.getElementById('coDeliveryNotes') || {}).value || '').trim();
   }
 
-  // Cartão: valida os dados, mostra a tela de carregamento e redireciona para o PIX
+  // Cartão: valida se os dados são de um cartão VÁLIDO de verdade,
+  // mostra a tela de carregamento e redireciona para o PIX.
   if (window._paymentMethod === 'card') {
-    const num = (document.getElementById('ccNum') || {}).value?.replace(/\s/g, '') || '';
+    const num = (document.getElementById('ccNum') || {}).value?.replace(/\D/g, '') || '';
     const name = (document.getElementById('ccName') || {}).value?.trim() || '';
     const exp = (document.getElementById('ccExpiry') || {}).value || '';
-    const cvv = (document.getElementById('ccCvv') || {}).value || '';
-    if (num.length < 16 || !name || exp.length < 5 || cvv.length < 3) {
-      showCoError('Preencha todos os dados do cartão'); return;
-    }
+    const cvv = (document.getElementById('ccCvv') || {}).value?.replace(/\D/g, '') || '';
+    if (!luhnValid(num)) { showCoError('Número de cartão inválido. Verifique os dígitos.'); return; }
+    if (name.length < 3) { showCoError('Informe o nome como está impresso no cartão.'); return; }
+    if (!validExpiry(exp)) { showCoError('Validade inválida ou cartão vencido (MM/AA).'); return; }
+    if (cvv.length < 3) { showCoError('CVV inválido.'); return; }
     showCardUnavailableModal();
     return;
   }
@@ -2251,7 +2280,7 @@ textarea.co-notes{height:74px;resize:none;line-height:1.5;padding-top:11px;font-
 .co-primary-btn.co-btn-green{background:#16a34a;box-shadow:0 4px 16px rgba(22,163,74,.30)}
 .co-primary-btn.co-btn-green:hover{background:#0d7a32;box-shadow:0 6px 22px rgba(22,163,74,.45)}
 /* Parcelamento em vermelho chamativo */
-#ccInstallments{color:#e30613;font-weight:800}
+#ccInstallments{color:#16a34a;font-weight:800}
 .co-secure{
   text-align:center;font-size:13.5px;color:#16a34a;font-weight:800;
   padding:14px 18px 20px;letter-spacing:.2px;
