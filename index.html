@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -25,17 +25,6 @@
 <link rel="stylesheet" href="style.css?v=28">
 </head>
 <body>
-<!-- Alternador de visualização PC / Celular -->
-<div class="view-switch" id="viewSwitch">
-  <button id="viewPc" type="button" title="Ver como PC (Desktop)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-    <span>PC</span>
-  </button>
-  <button id="viewMobile" type="button" class="active" title="Ver como Celular (Mobile)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
-    <span>Celular</span>
-  </button>
-</div>
 <!-- Barra de busca global — fixed, visível em qualquer página -->
 <div class="search-bar hidden" id="searchBar">
   <input type="text" placeholder="Buscar flores, cestas, presentes..." autocomplete="off" spellcheck="false">
@@ -256,7 +245,7 @@
 <script src="payment-config.js?v=7"></script>
 <script src="cart.js?v=37"></script>
 <script src="info-pages.js?v=2"></script>
-<script src="view-toggle.js"></script>
 <script src="drag-scroll.js"></script>
+<script src="back-handler.js?v=1"></script>
 </body>
 </html>
