@@ -720,6 +720,26 @@ function initCitiesDirectory() {
   // Initialize Popular Tags & Cities
   initPopularTags();
   initCitiesDirectory();
-  
+
+  // Sitelinks (Google Ads): âncoras na URL abrem a categoria correspondente
+  (function handleHashRoute() {
+    const MAP = {
+      'dia-dos-namorados': 31,
+      'buques-de-rosas': 25,
+      'flores-e-chocolate': 27,
+      'cestas-romanticas': 22,
+      'rosas-encantadas': 28,
+      'ursinhos': 32
+    };
+    function go() {
+      const h = (location.hash || '').replace('#', '').toLowerCase();
+      if (MAP[h] && typeof openCategory === 'function') {
+        setTimeout(() => openCategory(MAP[h]), 250);
+      }
+    }
+    go();
+    window.addEventListener('hashchange', go);
+  })();
+
   console.log(`✅ ${data.length} produtos carregados em ${CATEGORIES.length} categorias`);
 })();
