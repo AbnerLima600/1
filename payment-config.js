@@ -4,11 +4,11 @@
    NUNCA coloque a chave secreta (sk_live_...) aqui. Este arquivo é
    público. A chave secreta fica nas Environment Variables da Vercel.
 
-   Depois do deploy na Vercel (ver vercel-backend/README.md), cole
-   abaixo a URL do seu projeto + "/api/pix".
+   A função do PIX está na pasta "api/pix.js" e é publicada JUNTO com o
+   site na Vercel. Por isso o endpoint é relativo ("/api/pix") — funciona
+   automaticamente no domínio onde o site estiver (ex.: monalisaflores.site).
    ════════════════════════════════════════════════════════════════ */
 window.MONALISA_PIX = {
-  // Troque pela URL do SEU projeto Vercel, ex.: https://monalisa-pix.vercel.app/api/pix
-  endpoint: "https://SEU-PROJETO.vercel.app/api/pix",
+  endpoint: "/api/pix",
   whatsappNumber: "5511999999999"
 };

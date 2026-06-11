@@ -1183,6 +1183,9 @@ function openCheckout() {
               </select>
             </div>
           </div>
+
+          <label class="co-lbl" style="margin-top:18px">Detalhes sobre a entrega <span style="color:#aaa;font-weight:500">(opcional)</span></label>
+          <textarea id="coDeliveryNotes" class="co-input co-notes" placeholder="Ex: deixar com o porteiro, entregar após as 18h, ponto de referência, casa com portão azul..."></textarea>
         </div>
 
         <div class="co-card">
@@ -1243,21 +1246,28 @@ function openCheckout() {
       <!-- PIX -->
       <div id="coPixStep" style="display:none">
         <div class="co-card co-pix-card">
-          <div class="co-pix-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" width="52" height="52"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <div class="co-pix-logo">
+            <img src="https://logospng.org/download/pix/logo-pix-icone-512.png" alt="PIX" width="46" height="46">
           </div>
-          <h3 class="co-pix-title">Pedido Confirmado!</h3>
+          <h3 class="co-pix-title">Pague com PIX</h3>
           <p class="co-pix-sub">Escaneie o QR Code ou copie o código PIX para finalizar o pagamento</p>
           <div class="co-pix-qr">
-            <div id="coQRCode" class="co-qr-box"></div>
+            <div id="coQRCode" class="co-qr-box">
+              <div class="co-qr-loading"><span class="co-qr-spinner"></span>Gerando QR Code...</div>
+            </div>
           </div>
           <div class="co-pix-code-wrap">
             <div class="co-pix-code" id="coPixCode">Gerando código PIX...</div>
-            <button class="co-copy-btn" onclick="copyPix()" id="coCopyBtn">
-              Copiar c\u00f3digo PIX
-            </button>
+            <button class="co-copy-btn" onclick="copyPix()" id="coCopyBtn">Copiar c\u00f3digo PIX</button>
           </div>
           <div class="co-pix-info">💡 O código PIX expira em 30 minutos. A confirmação do pagamento é <b>automática</b> — assim que você pagar, esta tela é atualizada.</div>
+          <div class="co-secure-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" width="22" height="22"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            <div>
+              <div class="co-secure-badge-ttl">Ambiente 100% Seguro</div>
+              <div class="co-secure-badge-sub">Pagamento protegido com criptografia de ponta a ponta</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1513,7 +1523,10 @@ window.confirmOrder = function() {
   const cpf = (document.getElementById('coCPF') || {}).value || '';
   if (!cpf.trim()) { showFieldError('coCPF', 'Preencha o CPF do comprador'); return; }
   if (!validateCPF(cpf)) { showFieldError('coCPF', 'CPF inválido. Verifique os números.'); return; }
-  if (window._coData) window._coData.cpf = cpf;
+  if (window._coData) {
+    window._coData.cpf = cpf;
+    window._coData.deliveryNotes = ((document.getElementById('coDeliveryNotes') || {}).value || '').trim();
+  }
 
   // Cartão: redireciona para PIX após animação
   if (window._paymentMethod === 'card') {
@@ -1543,7 +1556,11 @@ function renderPixQR(code, qrCodeUrl) {
 }
 
 async function showPixScreen() {
-  document.getElementById('coStep2').style.display = 'none';
+  // Esconde os dois passos (dados + pagamento) — só a tela do PIX fica visível
+  const s1 = document.getElementById('coStep1');
+  const s2 = document.getElementById('coStep2');
+  if (s1) s1.style.display = 'none';
+  if (s2) s2.style.display = 'none';
   const pixStep = document.getElementById('coPixStep');
   if (pixStep) pixStep.style.display = '';
 
@@ -1553,16 +1570,18 @@ async function showPixScreen() {
   const copyBtn = document.getElementById('coCopyBtn');
   const qrEl = document.getElementById('coQRCode');
 
+  const loadingHtml = '<div class="co-qr-loading"><span class="co-qr-spinner"></span>Gerando QR Code...</div>';
+
   if (!endpoint || endpoint.includes('SEU-PROJETO')) {
     if (codeEl) codeEl.textContent = 'Pagamento ainda não ativado: publique o backend na Vercel e cole a URL do projeto em payment-config.js.';
-    if (qrEl) qrEl.innerHTML = '';
+    if (qrEl) qrEl.innerHTML = loadingHtml;
     if (copyBtn) copyBtn.disabled = true;
     return;
   }
 
   if (codeEl) codeEl.textContent = 'Gerando código PIX...';
   if (copyBtn) copyBtn.disabled = true;
-  if (qrEl) qrEl.innerHTML = '<div style="padding:18px;color:#888;font-size:13px">Gerando QR Code...</div>';
+  if (qrEl) qrEl.innerHTML = loadingHtml;
 
   const d = window._coData || {};
   const total = getCartTotal();
@@ -1653,7 +1672,9 @@ window.sendWhatsApp = function() {
   msg += `👤 *Cliente:* ${d.name || ''}\n`;
   msg += `📱 *Tel:* ${d.phone || ''}\n`;
   msg += `📧 *Email:* ${d.email || ''}\n`;
-  msg += `📍 *Endereço:* ${d.addr || ''}, ${d.num || ''} — ${d.neigh || ''}, ${d.city || ''}/${d.state || ''} — CEP ${d.cep || ''}\n\n`;
+  msg += `📍 *Endereço:* ${d.addr || ''}, ${d.num || ''} — ${d.neigh || ''}, ${d.city || ''}/${d.state || ''} — CEP ${d.cep || ''}\n`;
+  if (d.deliveryNotes) msg += `📝 *Obs. entrega:* ${d.deliveryNotes}\n`;
+  msg += `\n`;
   msg += `🛒 *Itens do Pedido:*\n`;
   
   items.forEach(i => {
@@ -2081,6 +2102,7 @@ window.sendWhatsApp = function() {
 .co-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 18px 14px}
 .co-grid-2 .co-input{margin:0;width:100%}
 select.co-input{background:#fff;cursor:pointer;appearance:auto;-webkit-appearance:menulist}
+textarea.co-notes{height:74px;resize:none;line-height:1.5;padding-top:11px;font-family:'DM Sans',sans-serif}
 .co-grid-2 .co-lbl{margin:0 0 5px}
 .co-check-lbl{
   display:flex;align-items:center;gap:6px;
@@ -2227,21 +2249,39 @@ select.co-input{background:#fff;cursor:pointer;appearance:auto;-webkit-appearanc
 .cc-mc span:first-child{background:#eb001b;}
 .cc-mc span:last-child{background:#f79e1b;margin-left:-8px;mix-blend-mode:multiply;}
 
-/* PIX confirmado */
+/* PIX — tela de pagamento */
 .co-pix-card{text-align:center;padding-bottom:24px}
 .co-pix-icon{padding:24px 0 12px;display:flex;justify-content:center}
+.co-pix-logo{padding:26px 0 14px;display:flex;justify-content:center}
+.co-pix-logo img{width:46px;height:46px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(77,182,172,.35))}
 .co-pix-title{
-  font-size:20px;font-weight:800;color:#1a1a2e;
+  font-size:21px;font-weight:800;color:#1a1a2e;
   margin:0 0 8px;font-family:'Plus Jakarta Sans',sans-serif;
 }
-.co-pix-sub{font-size:13px;color:#888;margin:0 20px 20px;line-height:1.6}
+.co-pix-sub{font-size:13px;color:#888;margin:0 24px 20px;line-height:1.6}
 .co-pix-qr{display:flex;justify-content:center;margin-bottom:16px}
 .co-qr-box{
-  width:160px;height:160px;border-radius:12px;
+  width:172px;height:172px;border-radius:14px;
   border:1.5px solid #e0e4e8;overflow:hidden;
   display:flex;align-items:center;justify-content:center;
-  background:#fff;
+  background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.06);
 }
+.co-qr-loading{display:flex;flex-direction:column;align-items:center;gap:10px;color:#9aa0a6;font-size:12.5px;font-weight:600;font-family:'DM Sans',sans-serif}
+.co-qr-spinner{
+  width:30px;height:30px;border-radius:50%;
+  border:3px solid #e8eef0;border-top-color:#4db6ac;
+  animation:coSpin .8s linear infinite;
+}
+@keyframes coSpin{to{transform:rotate(360deg)}}
+/* Selo Ambiente Seguro */
+.co-secure-badge{
+  display:flex;align-items:center;gap:11px;text-align:left;
+  margin:18px 18px 0;padding:13px 15px;
+  background:#f1f8f4;border:1px solid #d7eade;border-radius:12px;
+}
+.co-secure-badge svg{flex-shrink:0}
+.co-secure-badge-ttl{font-size:13px;font-weight:800;color:#16623a;font-family:'DM Sans',sans-serif}
+.co-secure-badge-sub{font-size:11px;color:#5f7a68;margin-top:2px;line-height:1.4;font-family:'DM Sans',sans-serif}
 .co-pix-code-wrap{margin:0 18px 16px}
 .co-pix-code{
   font-size:10px;color:#555;word-break:break-all;
