@@ -10,5 +10,5 @@
    ════════════════════════════════════════════════════════════════ */
 window.MONALISA_PIX = {
   endpoint: "/api/pix",
-  whatsappNumber: "5511999999999"
+  whatsappNumber: "5516996336191"
 };

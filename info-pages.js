@@ -1,113 +1,183 @@
 /* ════════════════════════════════════════════════════════════════
    PÁGINAS INSTITUCIONAIS — Monalisa Flores
-   Conteúdo fictício, profissional e coerente, aberto em modal pelo rodapé.
+   Conteúdo institucional e políticas (LGPD / CDC), abertas em modal
+   pelo rodapé. Dados cadastrais reais da empresa.
    ════════════════════════════════════════════════════════════════ */
+
+// Dados cadastrais (centralizados para manter tudo consistente)
+const EMPRESA = {
+  fantasia: 'Monalisa Flores',
+  razao: 'Janaina Naiara Zanini',
+  cnpj: '63.948.057/0001-37',
+  endereco: 'Rua Adelar Machado, 727 — Jardim Santa Rosa, Matão/SP — CEP 15995-046',
+  telefone: '(16) 99633-6191',
+  whatsapp: '(16) 99633-6191',
+  email: 'contato@monalisaflores.site',
+  site: 'monalisaflores.site',
+  horario: 'Segunda a sexta, das 08h às 20h · Sábados, domingos e feriados, das 08h às 18h'
+};
+
 const INFO_PAGES = {
-  termos: {
-    title: 'Termos de Uso',
-    html: `
-      <p>Bem-vindo(a) à <b>Monalisa Flores</b>. Ao acessar e utilizar nosso site, você concorda com os termos abaixo. Recomendamos a leitura atenta antes de finalizar qualquer pedido.</p>
-      <h4>1. Cadastro e Pedidos</h4>
-      <p>As informações fornecidas no momento da compra (nome, endereço, telefone e dados do destinatário) devem ser verdadeiras e completas. A Monalisa Flores não se responsabiliza por entregas frustradas em razão de dados incorretos ou incompletos.</p>
-      <h4>2. Produtos e Disponibilidade</h4>
-      <p>Trabalhamos com flores naturais e frescas. Pequenas variações de tonalidade, tipo de folhagem ou recipiente podem ocorrer conforme a disponibilidade sazonal, preservando sempre o padrão, o valor e a beleza do arranjo apresentado.</p>
-      <h4>3. Preços e Pagamento</h4>
-      <p>Os preços exibidos são válidos para o momento da compra. Eventuais adicionais (cartão, embalagem, chocolates, balões) são somados ao valor final antes da confirmação do pedido.</p>
-      <h4>4. Entregas</h4>
-      <p>Os prazos são estimados conforme a região e o horário do pedido. Em datas comemorativas, os prazos podem sofrer alterações, sempre comunicadas ao cliente.</p>
-      <p style="color:#777;margin-top:14px">Última atualização: janeiro de 2026.</p>`
-  },
-  devolucoes: {
-    title: 'Devoluções e Reembolsos',
-    html: `
-      <p>Sua satisfação é a nossa prioridade. Por se tratar de produtos perecíveis (flores naturais e alimentos), seguimos uma política específica, em conformidade com o Código de Defesa do Consumidor.</p>
-      <h4>1. Problemas na Entrega</h4>
-      <p>Caso o produto chegue danificado ou em desacordo com o pedido, entre em contato com nosso SAC em até <b>24 horas</b> após o recebimento, com fotos do item. Faremos a <b>troca ou o reenvio sem custo</b>.</p>
-      <h4>2. Direito de Arrependimento</h4>
-      <p>Para compras não personalizadas, o cancelamento pode ser solicitado antes do início da preparação do pedido. Após a produção/saída para entrega, por se tratar de item perecível, o cancelamento não é possível.</p>
-      <h4>3. Reembolsos</h4>
-      <p>Aprovado o reembolso, o estorno é processado em até <b>7 dias úteis</b>, pelo mesmo meio de pagamento utilizado na compra.</p>
-      <p style="color:#777;margin-top:14px">Dúvidas? Fale com nosso SAC.</p>`
-  },
-  sac: {
-    title: 'Central de Atendimento (SAC)',
-    html: `
-      <p>Estamos aqui para ajudar você em todas as etapas do seu pedido — antes, durante e após a entrega.</p>
-      <h4>Canais de Atendimento</h4>
-      <p>
-        📱 <b>WhatsApp:</b> (11) 99999-9999<br>
-        📧 <b>E-mail:</b> atendimento@monalisaflores.com.br<br>
-        ☎️ <b>Telefone:</b> (11) 4002-8922
-      </p>
-      <h4>Horário de Funcionamento</h4>
-      <p>
-        Segunda a sexta: 08h às 20h<br>
-        Sábados, domingos e feriados: 08h às 18h
-      </p>
-      <h4>Acompanhamento de Pedido</h4>
-      <p>Informe o número do seu pedido em qualquer um dos canais acima e nossa equipe dará todo o suporte, incluindo confirmação de entrega e foto do presente.</p>`
-  },
   quemsomos: {
     title: 'Quem Somos',
     html: `
-      <p>A <b>Monalisa Flores</b> nasceu do desejo de transformar sentimentos em gestos. Há mais de uma década levamos beleza, perfume e emoção até a porta de quem você ama.</p>
-      <h4>Nossa Missão</h4>
-      <p>Encurtar distâncias e eternizar momentos por meio de flores frescas, arranjos cuidadosamente preparados e um atendimento humano e atencioso.</p>
-      <h4>Nossos Valores</h4>
+      <p>A <b>Monalisa Flores</b> é uma plataforma que <b>conecta você às melhores floriculturas e fornecedores parceiros de cada região do Brasil</b>. Funcionamos como uma ponte entre o cliente e uma rede selecionada de parceiros locais, garantindo agilidade na entrega e qualidade nos produtos em diversas cidades.</p>
+      <h4>Como funciona</h4>
+      <p>Quando você faz um pedido, ele é direcionado a um <b>parceiro local da sua região</b>, que prepara e realiza a entrega. Esse modelo permite flores mais frescas, entregas mais rápidas e atendimento próximo de você.</p>
+      <h4>Nossos valores</h4>
       <p>
-        🌷 <b>Frescor:</b> flores selecionadas diariamente.<br>
-        💝 <b>Cuidado:</b> cada arranjo é montado à mão, com carinho.<br>
-        🚚 <b>Agilidade:</b> entrega no mesmo dia em diversas regiões.<br>
-        🤝 <b>Confiança:</b> milhares de presentes entregues com excelência.
+        🌷 <b>Qualidade:</b> parceiros selecionados e produtos frescos.<br>
+        💝 <b>Cuidado:</b> cada pedido tratado com atenção, do carrinho à entrega.<br>
+        🚚 <b>Agilidade:</b> rede regional para entregas rápidas.<br>
+        🤝 <b>Transparência:</b> políticas claras e atendimento humano.
       </p>
-      <p>Seja para celebrar, agradecer, pedir desculpas ou simplesmente dizer "estou pensando em você", a Monalisa Flores está pronta para florir o seu momento.</p>`
+      <h4>Dados da empresa</h4>
+      <p>
+        <b>${EMPRESA.fantasia}</b> (nome fantasia)<br>
+        Responsável: ${EMPRESA.razao}<br>
+        CNPJ: ${EMPRESA.cnpj}<br>
+        Endereço administrativo: ${EMPRESA.endereco}<br>
+        Contato: ${EMPRESA.telefone} · ${EMPRESA.email}
+      </p>`
   },
+
+  contato: {
+    title: 'Fale Conosco',
+    html: `
+      <p>Estamos à disposição para ajudar você antes, durante e depois do seu pedido. Fale com a nossa equipe pelos canais abaixo:</p>
+      <h4>Canais de atendimento</h4>
+      <p>
+        📱 <b>WhatsApp / Telefone:</b> ${EMPRESA.whatsapp}<br>
+        📧 <b>E-mail:</b> ${EMPRESA.email}<br>
+        🌐 <b>Site:</b> ${EMPRESA.site}
+      </p>
+      <h4>Horário de atendimento</h4>
+      <p>${EMPRESA.horario}</p>
+      <h4>Dados da empresa</h4>
+      <p>
+        <b>${EMPRESA.fantasia}</b><br>
+        Responsável: ${EMPRESA.razao}<br>
+        CNPJ: ${EMPRESA.cnpj}<br>
+        Endereço: ${EMPRESA.endereco}
+      </p>
+      <p style="color:#777;margin-top:12px">Para dúvidas, pedidos, trocas ou reclamações, informe o número do seu pedido para um atendimento mais rápido.</p>`
+  },
+
+  termos: {
+    title: 'Termos de Uso',
+    html: `
+      <p>Bem-vindo(a) à <b>Monalisa Flores</b> (${EMPRESA.site}), plataforma operada por <b>${EMPRESA.razao}</b>, CNPJ ${EMPRESA.cnpj}. Ao acessar e utilizar nosso site, você concorda com os termos abaixo. Recomendamos a leitura atenta antes de finalizar qualquer pedido.</p>
+      <h4>1. Sobre o serviço</h4>
+      <p>A Monalisa Flores atua conectando clientes a uma rede de <b>floriculturas e fornecedores parceiros</b> em diversas regiões. O preparo e a entrega dos pedidos são realizados por parceiros locais, sob coordenação da plataforma.</p>
+      <h4>2. Pedidos e informações</h4>
+      <p>As informações fornecidas no momento da compra (nome, contato, endereço e dados do destinatário) devem ser verdadeiras e completas. Não nos responsabilizamos por entregas frustradas em razão de dados incorretos ou ausência do destinatário.</p>
+      <h4>3. Produtos e disponibilidade</h4>
+      <p>Trabalhamos com flores naturais. Pequenas variações de tonalidade, folhagem ou recipiente podem ocorrer conforme a disponibilidade sazonal e o parceiro responsável, preservando sempre o padrão, o valor e a beleza do arranjo.</p>
+      <h4>4. Preços e pagamento</h4>
+      <p>Os preços exibidos são válidos para o momento da compra. Adicionais selecionados (cartão, embalagem, chocolates, etc.) são somados ao valor final antes da confirmação. Os pagamentos são processados por gateways seguros; não armazenamos dados de cartão em nosso site.</p>
+      <h4>5. Entregas</h4>
+      <p>Os prazos são estimados conforme a região, o horário do pedido e o parceiro responsável. Em datas comemorativas, os prazos podem variar e serão comunicados ao cliente.</p>
+      <h4>6. Foro</h4>
+      <p>Estes termos são regidos pela legislação brasileira, em especial o Código de Defesa do Consumidor (Lei nº 8.078/1990).</p>
+      <p style="color:#777;margin-top:12px">Última atualização: junho de 2026.</p>`
+  },
+
   privacidade: {
     title: 'Política de Privacidade',
     html: `
-      <p>A Monalisa Flores respeita a sua privacidade e protege os seus dados pessoais, em conformidade com a <b>Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018)</b>.</p>
-      <h4>1. Dados Coletados</h4>
-      <p>Coletamos apenas os dados necessários para processar e entregar o seu pedido: nome, e-mail, telefone, endereço e dados do destinatário.</p>
-      <h4>2. Uso das Informações</h4>
-      <p>Utilizamos seus dados exclusivamente para: processar pedidos, realizar entregas, prestar atendimento e enviar comunicações que você autorizar.</p>
-      <h4>3. Compartilhamento</h4>
-      <p>Não vendemos nem cedemos seus dados a terceiros. Compartilhamos informações apenas com parceiros logísticos e de pagamento, na medida necessária para concluir a sua compra.</p>
-      <h4>4. Seus Direitos</h4>
-      <p>Você pode solicitar, a qualquer momento, o acesso, a correção ou a exclusão dos seus dados pelo nosso SAC.</p>
-      <p style="color:#777;margin-top:14px">Última atualização: janeiro de 2026.</p>`
+      <p>A <b>Monalisa Flores</b> respeita a sua privacidade e protege os seus dados pessoais, em conformidade com a <b>Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018)</b>.</p>
+      <h4>1. Controlador dos dados</h4>
+      <p>${EMPRESA.razao} — CNPJ ${EMPRESA.cnpj}, com endereço em ${EMPRESA.endereco}. Contato para assuntos de privacidade: ${EMPRESA.email}.</p>
+      <h4>2. Dados coletados</h4>
+      <p>Coletamos apenas os dados necessários para processar e entregar o seu pedido: nome, e-mail, telefone, endereço e dados do destinatário. Dados de pagamento são tratados diretamente pelo provedor de pagamento, não ficando armazenados em nosso site.</p>
+      <h4>3. Uso das informações</h4>
+      <p>Utilizamos seus dados exclusivamente para: processar pedidos, viabilizar a entrega por meio dos parceiros, prestar atendimento e enviar comunicações que você autorizar.</p>
+      <h4>4. Compartilhamento</h4>
+      <p>Não vendemos seus dados. Compartilhamos informações apenas com os <b>parceiros responsáveis pela entrega</b> e com provedores de pagamento e logística, na medida estritamente necessária para concluir o seu pedido.</p>
+      <h4>5. Seus direitos</h4>
+      <p>Você pode solicitar, a qualquer momento, o acesso, a correção ou a exclusão dos seus dados, bem como a revogação de consentimento, pelo e-mail ${EMPRESA.email}.</p>
+      <h4>6. Segurança</h4>
+      <p>Adotamos medidas técnicas e organizacionais para proteger seus dados. A navegação ocorre em ambiente seguro (HTTPS).</p>
+      <p style="color:#777;margin-top:12px">Última atualização: junho de 2026.</p>`
   },
+
   cookies: {
     title: 'Política de Cookies',
     html: `
-      <p>Utilizamos cookies para oferecer a melhor experiência possível durante a sua navegação em nosso site.</p>
+      <p>Utilizamos cookies para oferecer a melhor experiência possível durante a sua navegação.</p>
       <h4>O que são cookies?</h4>
-      <p>São pequenos arquivos armazenados no seu dispositivo que ajudam o site a lembrar de suas preferências e a funcionar corretamente.</p>
+      <p>São pequenos arquivos armazenados no seu dispositivo que ajudam o site a funcionar corretamente e a lembrar suas preferências.</p>
       <h4>Como utilizamos</h4>
       <p>
         🔧 <b>Essenciais:</b> mantêm o carrinho e o funcionamento do site.<br>
-        📊 <b>Desempenho:</b> ajudam a entender como o site é usado, de forma anônima.<br>
-        🎯 <b>Personalização:</b> lembram suas preferências e melhoram as recomendações.
+        📊 <b>Desempenho:</b> ajudam a entender, de forma anônima, como o site é usado.<br>
+        🎯 <b>Personalização:</b> lembram preferências e melhoram recomendações.
       </p>
       <h4>Gerenciamento</h4>
-      <p>Você pode aceitar ou recusar os cookies não essenciais a qualquer momento pelas configurações do seu navegador.</p>`
+      <p>Você pode aceitar ou recusar os cookies não essenciais a qualquer momento pelas configurações do seu navegador. Ao continuar navegando, você concorda com o uso conforme esta política.</p>
+      <p style="color:#777;margin-top:12px">Última atualização: junho de 2026.</p>`
   },
+
+  devolucoes: {
+    title: 'Trocas, Devoluções e Reembolsos',
+    html: `
+      <p>Sua satisfação é a nossa prioridade. Por se tratar de produtos perecíveis (flores naturais e alimentos), seguimos uma política específica, em conformidade com o <b>Código de Defesa do Consumidor</b>.</p>
+      <h4>1. Problemas na entrega</h4>
+      <p>Caso o produto chegue danificado ou em desacordo com o pedido, entre em contato com nosso atendimento em até <b>24 horas</b> após o recebimento, com fotos do item. Faremos a <b>troca ou o reenvio sem custo</b>.</p>
+      <h4>2. Direito de arrependimento</h4>
+      <p>Para compras não personalizadas, o cancelamento pode ser solicitado antes do início da preparação do pedido. Após a produção/saída para entrega, por se tratar de item perecível, o cancelamento pode não ser possível.</p>
+      <h4>3. Reembolsos</h4>
+      <p>Aprovado o reembolso, o estorno é processado em até <b>7 dias úteis</b>, pelo mesmo meio de pagamento utilizado na compra. Pagamentos via PIX são estornados na conta de origem.</p>
+      <h4>4. Como solicitar</h4>
+      <p>Fale com nosso atendimento pelo WhatsApp ${EMPRESA.whatsapp} ou e-mail ${EMPRESA.email}, informando o número do pedido.</p>`
+  },
+
+  entrega: {
+    title: 'Política de Entrega',
+    html: `
+      <p>As entregas da <b>Monalisa Flores</b> são realizadas por <b>parceiros locais</b> da região de destino, o que permite mais agilidade e frescor.</p>
+      <h4>Prazos</h4>
+      <p>Os prazos variam conforme a região, o horário do pedido e a disponibilidade do parceiro. As opções e estimativas são exibidas no momento do checkout (ex.: entrega no mesmo dia, entrega rápida ou agendamento).</p>
+      <h4>Endereço e destinatário</h4>
+      <p>É essencial informar o endereço completo e um contato do destinatário. Em caso de ausência, o parceiro poderá tentar novo contato; entregas frustradas por dados incorretos podem gerar custo de reenvio.</p>
+      <h4>Datas comemorativas</h4>
+      <p>Em datas de alta demanda (Dia dos Namorados, Dia das Mães, etc.), recomendamos antecipar o pedido. Os prazos podem variar e serão informados.</p>
+      <h4>Acompanhamento</h4>
+      <p>Para acompanhar seu pedido, fale com a gente pelo WhatsApp ${EMPRESA.whatsapp} informando o número do pedido.</p>`
+  },
+
+  sac: {
+    title: 'Central de Atendimento (SAC)',
+    html: `
+      <p>Precisa de ajuda? Nossa equipe está pronta para atender você em todas as etapas do pedido.</p>
+      <h4>Canais</h4>
+      <p>
+        📱 <b>WhatsApp / Telefone:</b> ${EMPRESA.whatsapp}<br>
+        📧 <b>E-mail:</b> ${EMPRESA.email}
+      </p>
+      <h4>Horário de atendimento</h4>
+      <p>${EMPRESA.horario}</p>
+      <h4>Acompanhamento de pedido</h4>
+      <p>Informe o número do seu pedido em qualquer um dos canais acima e daremos todo o suporte, incluindo confirmação de entrega.</p>
+      <p style="color:#777;margin-top:12px">${EMPRESA.fantasia} · CNPJ ${EMPRESA.cnpj}</p>`
+  },
+
   corporativo: {
     title: 'Monalisa Flores Corporativo',
     html: `
-      <p>Leve a beleza e o cuidado da Monalisa Flores para a sua empresa. Oferecemos soluções personalizadas para o mundo corporativo.</p>
-      <h4>Soluções para Empresas</h4>
+      <p>Leve a beleza e o cuidado da Monalisa Flores para a sua empresa. Conectamos sua empresa a parceiros para soluções corporativas.</p>
+      <h4>Soluções para empresas</h4>
       <p>
-        🏢 <b>Recepções e ambientes:</b> arranjos e manutenção semanal.<br>
+        🏢 <b>Recepções e ambientes:</b> arranjos e manutenção periódica.<br>
         🎉 <b>Eventos:</b> decoração floral para confraternizações e lançamentos.<br>
-        🎁 <b>Presentear clientes e colaboradores:</b> datas comemorativas, aniversários e conquistas.<br>
-        📦 <b>Pedidos em volume:</b> condições especiais e faturamento facilitado.
+        🎁 <b>Presentear clientes e colaboradores:</b> datas comemorativas e conquistas.<br>
+        📦 <b>Pedidos em volume:</b> condições especiais.
       </p>
-      <h4>Fale com o Comercial</h4>
+      <h4>Fale com o comercial</h4>
       <p>
-        📧 corporativo@monalisaflores.com.br<br>
-        📱 (11) 99999-9999
-      </p>
-      <p>Nossa equipe monta uma proposta sob medida para a necessidade da sua empresa.</p>`
+        📧 ${EMPRESA.email}<br>
+        📱 ${EMPRESA.whatsapp}
+      </p>`
   }
 };
 
