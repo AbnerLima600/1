@@ -1251,6 +1251,10 @@ function openCheckout() {
           </div>
           <h3 class="co-pix-title">Pague com PIX</h3>
           <p class="co-pix-sub">Escaneie o QR Code ou copie o código PIX para finalizar o pagamento</p>
+          <div class="co-pix-timer" id="coPixTimer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+            <span>Expira em <b id="coPixTimerVal">30:00</b></span>
+          </div>
           <div class="co-pix-qr">
             <div id="coQRCode" class="co-qr-box">
               <div class="co-qr-loading"><span class="co-qr-spinner"></span>Gerando QR Code...</div>
@@ -1260,7 +1264,7 @@ function openCheckout() {
             <div class="co-pix-code" id="coPixCode">Gerando código PIX...</div>
             <button class="co-copy-btn" onclick="copyPix()" id="coCopyBtn">Copiar c\u00f3digo PIX</button>
           </div>
-          <div class="co-pix-info">💡 O código PIX expira em 30 minutos. A confirmação do pagamento é <b>automática</b> — assim que você pagar, esta tela é atualizada.</div>
+          <div class="co-pix-info">O código PIX expira em 30 minutos. A confirmação do pagamento é <b>automática</b> — assim que você pagar, esta tela é atualizada.</div>
           <div class="co-secure-badge">
             <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" width="22" height="22"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
             <div>
@@ -1555,6 +1559,28 @@ function renderPixQR(code, qrCodeUrl) {
   }
 }
 
+function startPixTimer(minutes) {
+  if (window._pixTimer) clearInterval(window._pixTimer);
+  let total = (minutes || 30) * 60;
+  const el = document.getElementById('coPixTimerVal');
+  const render = () => {
+    const m = Math.floor(total / 60), s = total % 60;
+    if (el) el.textContent = m + ':' + String(s).padStart(2, '0');
+  };
+  render();
+  window._pixTimer = setInterval(() => {
+    total--;
+    if (total <= 0) {
+      clearInterval(window._pixTimer);
+      if (el) el.textContent = '0:00';
+      const box = document.getElementById('coPixTimer');
+      if (box) box.innerHTML = '<span style="font-weight:800">Código PIX expirado</span>';
+      return;
+    }
+    render();
+  }, 1000);
+}
+
 async function showPixScreen() {
   // Esconde os dois passos (dados + pagamento) — só a tela do PIX fica visível
   const s1 = document.getElementById('coStep1');
@@ -1563,6 +1589,7 @@ async function showPixScreen() {
   if (s2) s2.style.display = 'none';
   const pixStep = document.getElementById('coPixStep');
   if (pixStep) pixStep.style.display = '';
+  startPixTimer(30);
 
   const cfg = window.MONALISA_PIX || {};
   const endpoint = (cfg.endpoint || '').trim();
@@ -1661,7 +1688,7 @@ window.copyPix = async function() {
     if (navigator.clipboard) await navigator.clipboard.writeText(code);
     else { const t = document.createElement('textarea'); t.value = code; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); }
     const btn = document.getElementById('coCopyBtn');
-    if (btn) { btn.textContent = '✅ Copiado!'; setTimeout(() => { btn.textContent = '📋 Copiar código PIX'; }, 2500); }
+    if (btn) { btn.textContent = 'Copiado!'; setTimeout(() => { btn.textContent = 'Copiar código PIX'; }, 2500); }
   } catch {}
 };
 
@@ -2259,6 +2286,8 @@ textarea.co-notes{height:74px;resize:none;line-height:1.5;padding-top:11px;font-
   margin:0 0 8px;font-family:'Plus Jakarta Sans',sans-serif;
 }
 .co-pix-sub{font-size:13px;color:#888;margin:0 24px 20px;line-height:1.6}
+.co-pix-timer{display:inline-flex;align-items:center;gap:6px;justify-content:center;margin:0 auto 14px;padding:7px 15px;background:#fff5f5;border:1px solid #f3c2c5;border-radius:30px;color:#e30613;font-size:13px;font-weight:700;font-family:'DM Sans',sans-serif}
+.co-pix-timer b{font-variant-numeric:tabular-nums;font-weight:800;letter-spacing:.3px}
 .co-pix-qr{display:flex;justify-content:center;margin-bottom:16px}
 .co-qr-box{
   width:172px;height:172px;border-radius:14px;
