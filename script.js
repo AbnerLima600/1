@@ -453,6 +453,7 @@ function nextHeroSlide() {
 }
 
 function startHeroAutoPlay() {
+  if (!document.getElementById('heroTrack')) return; // imagem única: sem autoplay
   stopHeroAutoPlay();
   heroInterval = setInterval(nextHeroSlide, 4500); // changes slide every 4.5 seconds
 }
@@ -467,7 +468,7 @@ function stopHeroAutoPlay() {
 // Touch swipe support for mobile
 function initHeroCarouselTouch() {
   const carousel = document.getElementById('heroCarousel');
-  if (!carousel) return;
+  if (!carousel || !document.getElementById('heroTrack')) return; // imagem única: sem swipe
 
   let startX = 0;
   let moveX = 0;
