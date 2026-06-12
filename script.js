@@ -257,7 +257,7 @@ function openDetail(id) {
   document.getElementById('detStars').textContent = '★★★★★';
   document.getElementById('detCount').textContent = ' (' + fakeReviews(p.id).toLocaleString('pt-BR') + ' avaliações)';
   document.getElementById('detDesc').textContent  = p.description || '';
-  document.getElementById('detShip').innerHTML    = '<strong>Entrega grátis</strong> na sua região';
+  document.getElementById('detShip').innerHTML    = '<strong>Entrega grátis</strong>';
 
   const oldEl = document.getElementById('detOldPrice');
   if (p.old_price && Number(p.old_price) > Number(p.price)) {

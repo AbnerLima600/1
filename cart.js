@@ -275,7 +275,7 @@ function openProductModal(productId) {
       </div>
 
       <div style="display:flex;align-items:center;gap:6px;background:#f1f8f4;border-left:4px solid #16a34a;border-radius:8px;padding:11px 13px;margin:2px 0 4px;font-size:13px;color:#333">
-        <strong style="color:#16a34a">Entrega grátis</strong> na sua região
+        <strong style="color:#16a34a">Entrega grátis</strong>
       </div>
 
       ${customizableSection}
