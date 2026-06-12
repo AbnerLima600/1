@@ -1231,14 +1231,6 @@ function openCheckout() {
             <div class="co-pay-info"><div class="co-pay-name">Cartão de Crédito</div><div class="co-pay-sub">Todas as bandeiras</div></div>
             <div class="co-radio-dot" id="rp-card"></div>
           </div>
-          <div class="cc-brands cc-brands-inline">
-            <div class="cc-brand cc-visa">VISA</div>
-            <div class="cc-brand"><span class="cc-mc"><span></span><span></span></span></div>
-            <div class="cc-brand cc-elo">elo</div>
-            <div class="cc-brand cc-amex">AMEX</div>
-            <div class="cc-brand cc-hiper">Hipercard</div>
-            <div class="cc-brand cc-diners">Diners</div>
-          </div>
           <div id="cardFields" style="display:none;margin-top:12px">
             <label class="co-lbl">Número do Cartão</label>
             <input id="ccNum" class="co-input" placeholder="0000 0000 0000 0000" oninput="this.value=fmtCard(this.value)" inputmode="numeric">
@@ -1263,6 +1255,19 @@ function openCheckout() {
             <div class="co-total-line"><span>Subtotal</span><span>${fmt(subtotal)}</span></div>
             <div class="co-total-line"><span>Frete</span><span id="coFreightVal" style="color:#10b981">Grátis</span></div>
             <div class="co-total-final"><span>Total</span><span id="coFinalVal">${fmt(subtotal)}</span></div>
+          </div>
+
+          <div class="co-accepted">
+            <div class="co-accepted-label">Formas de pagamento aceitas</div>
+            <div class="cc-brands cc-brands-inline">
+              <div class="cc-brand cc-pix"><img src="https://logospng.org/download/pix/logo-pix-icone-512.png" alt="PIX"></div>
+              <div class="cc-brand cc-visa">VISA</div>
+              <div class="cc-brand"><span class="cc-mc"><span></span><span></span></span></div>
+              <div class="cc-brand cc-elo">elo</div>
+              <div class="cc-brand cc-amex">AMEX</div>
+              <div class="cc-brand cc-hiper">Hipercard</div>
+              <div class="cc-brand cc-diners">Diners</div>
+            </div>
           </div>
 
           <button class="co-primary-btn co-btn-green" onclick="confirmOrder()">Confirmar Pedido</button>
@@ -2292,9 +2297,12 @@ textarea.co-notes{height:74px;resize:none;line-height:1.5;padding-top:11px;font-
 }
 
 /* Bandeiras de cartão no checkout */
+.co-accepted{margin:18px 0 6px;text-align:center;}
+.co-accepted-label{font-size:11.5px;color:#9aa0a6;font-weight:600;margin-bottom:11px;font-family:'DM Sans',sans-serif;}
 .cc-brands{display:flex;flex-wrap:wrap;gap:7px;}
-.cc-brands-inline{justify-content:center;margin:14px 2px 4px;}
+.cc-brands-inline{justify-content:center;margin:0;}
 .cc-brand{width:50px;height:32px;border:1px solid #e5e7eb;border-radius:6px;background:#fff;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif;font-weight:900;box-shadow:0 1px 3px rgba(0,0,0,.07);}
+.cc-pix img{width:20px;height:20px;object-fit:contain;display:block;}
 .cc-visa{color:#1a1f71;font-style:italic;font-size:12.5px;letter-spacing:.5px;}
 .cc-elo{color:#000;font-size:14px;text-transform:lowercase;letter-spacing:.5px;}
 .cc-amex{color:#2e77bc;font-size:9.5px;}
