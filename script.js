@@ -684,34 +684,40 @@ function initCitiesDirectory() {
     }
   })();
 
-  // Banners de imagem — inseridos acima de categorias específicas
+  // Banners de imagem — inseridos acima de categorias específicas (com link ao clicar)
   (function insertBanners() {
-    function buildBanner(id, imgUrl, fallbackHtml) {
+    function buildBanner(id, imgUrl, fallbackHtml, catId) {
       const nb = document.createElement('div');
       nb.id = id;
       nb.className = 'namorados-banner nb-noimg';
+      if (catId) {
+        nb.style.cursor = 'pointer';
+        nb.addEventListener('click', function () { if (window.openCategory) openCategory(catId); });
+      }
       nb.innerHTML =
         '<img src="' + imgUrl + '" alt="" class="nb-img" ' +
         'onload="this.closest(\'.namorados-banner\').classList.remove(\'nb-noimg\')" onerror="this.remove()">' +
         '<div class="nb-fallback">' + fallbackHtml + '</div>';
       return nb;
     }
-    // Banner 1 — acima da categoria Ursinho (sec-32)
+    // Banner 1 — acima do Ursinho (sec-32) → redireciona para Flores + Chocolate (27)
     const ursinho = document.getElementById('sec-32');
     if (ursinho && !document.getElementById('namoradosBanner')) {
       ursinho.insertAdjacentElement('beforebegin', buildBanner(
         'namoradosBanner',
-        'https://i.ibb.co/k6QR18fj/Gemini-Generated-Image-q4dc7uq4dc7uq4dc.png',
-        '<div class="nb-hearts">💖 ❤️ 💝</div><h2>Feliz Dia dos Namorados</h2><p>Seu melhor presente está aqui!</p>'
+        'https://i.ibb.co/Xx65M48R/namorados-3.png',
+        '<div class="nb-hearts">💖 ❤️ 💝</div><h2>Flores & Chocolates</h2><p>Confira nossa seleção!</p>',
+        27
       ));
     }
-    // Banner 2 — acima da categoria Rosas Encantadas (sec-28). Imagem a ser enviada.
+    // Banner 2 — acima de Rosas Encantadas (sec-28) → redireciona para Buquês de Rosas (25)
     const rosas = document.getElementById('sec-28');
     if (rosas && !document.getElementById('namoradosBanner2')) {
       rosas.insertAdjacentElement('beforebegin', buildBanner(
         'namoradosBanner2',
-        'https://i.ibb.co/Q3Qywd1j/Gemini-Generated-Image-uc5hcnuc5hcnuc5h.png',
-        '<div class="nb-hearts">🌹 💐 🌹</div><h2>Ofertas Especiais</h2><p>Aproveite nossas promoções!</p>'
+        'https://i.ibb.co/ccnR5gYQ/namorados-1.png',
+        '<div class="nb-hearts">🌹 💐 🌹</div><h2>Buquês de Rosas</h2><p>Veja todos os buquês!</p>',
+        25
       ));
     }
   })();

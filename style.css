@@ -282,7 +282,7 @@ body{font-family:'DM Sans',sans-serif;background:#fff;max-width:430px;margin:0 a
 }
 .nb-img{ width: 100%; display: block; }
 /* Banner 2 (Rosas Encantadas): recorta o lado direito (sem texto), mostra o esquerdo */
-#namoradosBanner2 .nb-img{ height: 150px; object-fit: cover; object-position: left center; }
+/* (banner 2 mostra a imagem inteira, sem recorte) */
 .nb-fallback{ display: none; }
 .namorados-banner.nb-noimg .nb-img{ display: none; }
 .namorados-banner.nb-noimg .nb-fallback{
