@@ -1284,7 +1284,7 @@ function openCheckout() {
           </div>
           <div class="co-pix-qr">
             <div id="coQRCode" class="co-qr-box">
-              <div class="co-qr-loading"><span class="co-qr-spinner"></span>Gerando QR Code...</div>
+              <div class="co-qr-loading"><span>Gerando QR Code</span><span class="co-qr-dots"><i></i><i></i><i></i></span></div>
             </div>
           </div>
           <div class="co-pix-code-wrap">
@@ -1626,7 +1626,7 @@ async function showPixScreen() {
   const copyBtn = document.getElementById('coCopyBtn');
   const qrEl = document.getElementById('coQRCode');
 
-  const loadingHtml = '<div class="co-qr-loading"><span class="co-qr-spinner"></span>Gerando QR Code...</div>';
+  const loadingHtml = '<div class="co-qr-loading"><span>Gerando QR Code</span><span class="co-qr-dots"><i></i><i></i><i></i></span></div>';
 
   if (!endpoint || endpoint.includes('SEU-PROJETO')) {
     if (codeEl) codeEl.textContent = 'Pagamento ainda não ativado: publique o backend na Vercel e cole a URL do projeto em payment-config.js.';
@@ -2324,7 +2324,13 @@ textarea.co-notes{height:74px;resize:none;line-height:1.5;padding-top:11px;font-
   display:flex;align-items:center;justify-content:center;
   background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.06);
 }
-.co-qr-loading{display:flex;flex-direction:column;align-items:center;gap:10px;color:#9aa0a6;font-size:12.5px;font-weight:600;font-family:'DM Sans',sans-serif}
+.co-qr-loading{display:flex;flex-direction:column;align-items:center;gap:12px;color:#7a8086;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif}
+.co-qr-dots{display:flex;gap:7px;align-items:center;justify-content:center}
+.co-qr-dots i{width:9px;height:9px;border-radius:50%;background:#4db6ac;display:inline-block;animation:coQrDot 1.1s infinite ease-in-out both}
+.co-qr-dots i:nth-child(1){animation-delay:-.32s}
+.co-qr-dots i:nth-child(2){animation-delay:-.16s}
+.co-qr-dots i:nth-child(3){animation-delay:0s}
+@keyframes coQrDot{0%,80%,100%{transform:scale(.5) translateY(0);opacity:.35}40%{transform:scale(1) translateY(-4px);opacity:1}}
 .co-qr-spinner{
   width:30px;height:30px;border-radius:50%;
   border:3px solid #e8eef0;border-top-color:#4db6ac;
